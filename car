@@ -1,0 +1,64 @@
+class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello world!");
+    Carro.criarCarro();
+    Carro.criarCarro();
+    Carro.criarCarro();
+    Carro.criarCarro();
+  }
+}
+
+class Carro{
+  private static int n = 0;
+  private Carro(){
+    n++;
+  }
+  static public Carro criarCarro(){
+    if(n<3){
+      Carro c = new Carro();
+      System.out.println("Carro "+n+" criado");
+      return c;
+    } else {
+      System.out.println("Não podem ser criados mais de 3 carros!");
+      return null;
+    }
+  }
+
+  private void estacionar(){
+    if (Vaga.disponibilidade == true){
+      Vaga.changeDisponivel();
+      Vaga.setCarro(n);
+      System.out.println("Carro "+n+" estacionou");
+    } else {
+      int numCarro = Vaga.getCarro();
+      System.out.println("Vaga ocupada pelo carro "+numCarro);
+    }
+  }
+
+  private void sair(){
+    Vaga.changeDisponivel();
+    Vaga.setCarro(0);
+  }
+}
+
+class Vaga{
+  public static boolean disponibilidade = true;
+  private static int numCarro = 0;
+
+  public static boolean checkDisponivel(){
+    return disponibilidade;
+  }
+
+  public static void changeDisponivel(){
+    disponibilidade = !disponibilidade;
+  }
+
+  public static void setCarro(int nCarro){
+    numCarro = nCarro;
+  }
+  
+  public static int getCarro(){
+    return numCarro;
+  }
+
+}
